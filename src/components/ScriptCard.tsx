@@ -20,10 +20,14 @@ const ScriptCard: React.FC<{ script: ScriptItem }> = ({ script }) => {
       style={{ cursor: 'default' }} // النص قابل للتحديد؛ المؤشر مش pointer
     >
       {/* الغلاف قابل للضغط */}
-      <Link
-        to={`/scripts/${script.id}`}
+      <a
+        href={script.file}
+        download
         className="relative block w-full aspect-[3/4] bg-[#303842] focus:outline-none focus:ring-2 focus:ring-[#bfa36f]"
         aria-label={script.title}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ cursor: 'pointer' }}
       >
         {script.cover ? (
           <img
@@ -53,7 +57,7 @@ const ScriptCard: React.FC<{ script: ScriptItem }> = ({ script }) => {
             </span>
           </div>
         )}
-      </Link>
+      </a>
 
       {/* محتوى قابل للتحديد */}
       <div className="flex-1 flex flex-col p-4 gap-2 select-text">
