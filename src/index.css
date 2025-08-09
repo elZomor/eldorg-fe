@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CSS Custom Properties for Theme System */
+:root {
+  /* Default to dark theme */
+  --color-bg-primary: #0f1115;
+  --color-bg-secondary: #303842;
+  --color-bg-tertiary: #1a1f26;
+  --color-text-primary: #f0f0f0;
+  --color-text-secondary: #c1c7cd;
+  --color-text-muted: #8b9199;
+  --color-accent-primary: #597b9c;
+  --color-accent-secondary: #bfa36f;
+  --color-accent-hover: #e6b46a;
+  --color-border: #404854;
+  --color-border-light: #2a3038;
+  
+  /* Transition properties */
+  --transition-theme: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Smooth transitions for theme changes */
+* {
+  transition: var(--transition-theme);
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* Theme-aware utility classes */
+@layer utilities {
+  .bg-theme-bg-primary { background-color: var(--color-bg-primary); }
+  .bg-theme-bg-secondary { background-color: var(--color-bg-secondary); }
+  .bg-theme-bg-tertiary { background-color: var(--color-bg-tertiary); }
+  .text-theme-text-primary { color: var(--color-text-primary); }
+  .text-theme-text-secondary { color: var(--color-text-secondary); }
+  .text-theme-text-muted { color: var(--color-text-muted); }
+  .text-theme-accent-primary { color: var(--color-accent-primary); }
+  .text-theme-accent-secondary { color: var(--color-accent-secondary); }
+  .border-theme-border { border-color: var(--color-border); }
+  .border-theme-border-light { border-color: var(--color-border-light); }
+  .bg-theme-accent-primary { background-color: var(--color-accent-primary); }
+  .bg-theme-accent-secondary { background-color: var(--color-accent-secondary); }
+  .hover\:bg-theme-accent-hover:hover { background-color: var(--color-accent-hover); }
+}
+
+/* Focus styles for accessibility */
+.focus-visible\:ring-theme-accent:focus-visible {
+  --tw-ring-color: var(--color-accent-primary);
+}
