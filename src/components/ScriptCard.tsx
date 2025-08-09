@@ -14,7 +14,7 @@ const ScriptCard: React.FC<{ script: ScriptItem }> = ({ script }) => {
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ y: -8, boxShadow: '0 8px 32px 0 rgba(89,123,156,0.15)' }}
-      transition={{ duration: 0.3 }}
+      transition={{ duration: 0.15 }}
       className="group relative bg-[#0f1115] border-2 border-transparent rounded-xl overflow-hidden shadow-md transition-all duration-200 flex flex-col h-full hover:border-[#597b9c] focus-within:border-[#bfa36f]"
       aria-label={script.title}
       style={{ cursor: 'default' }} // النص قابل للتحديد؛ المؤشر مش pointer

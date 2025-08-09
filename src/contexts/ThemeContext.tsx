@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from 'react';
 
 export type Theme = 'light' | 'dark' | 'system';
 
@@ -24,13 +30,16 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-  const [theme, setThemeState] = useState<Theme>('system');
+  // Set dark as the default theme
+  const [theme, setThemeState] = useState<Theme>('dark');
   const [actualTheme, setActualTheme] = useState<'light' | 'dark'>('dark');
 
   // Get system preference
   const getSystemTheme = (): 'light' | 'dark' => {
     if (typeof window !== 'undefined') {
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      return window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light';
     }
     return 'dark';
   };
@@ -49,8 +58,8 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     if (savedTheme && ['light', 'dark', 'system'].includes(savedTheme)) {
       setThemeState(savedTheme);
     } else {
-      // Default to system preference
-      setThemeState('system');
+      // Default to dark mode
+      setThemeState('dark');
     }
   }, []);
 
@@ -58,11 +67,11 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   useEffect(() => {
     const newActualTheme = calculateActualTheme(theme);
     setActualTheme(newActualTheme);
-    
+
     // Apply theme to document
     document.documentElement.classList.remove('light', 'dark');
     document.documentElement.classList.add(newActualTheme);
-    
+
     // Update CSS custom properties
     updateCSSVariables(newActualTheme);
   }, [theme]);
@@ -70,7 +79,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   // Listen for system theme changes
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    
+
     const handleChange = () => {
       if (theme === 'system') {
         const newActualTheme = getSystemTheme();
@@ -87,7 +96,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 
   const updateCSSVariables = (currentTheme: 'light' | 'dark') => {
     const root = document.documentElement;
-    
+
     if (currentTheme === 'dark') {
       // Dark theme (existing theatrical colors)
       root.style.setProperty('--color-bg-primary', '#0f1115');
@@ -128,7 +137,9 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, actualTheme, setTheme, toggleTheme }}>
+    <ThemeContext.Provider
+      value={{ theme, actualTheme, setTheme, toggleTheme }}
+    >
       {children}
     </ThemeContext.Provider>
   );
